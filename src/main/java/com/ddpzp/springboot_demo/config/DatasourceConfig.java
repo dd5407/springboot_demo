@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
@@ -31,6 +32,7 @@ public class DatasourceConfig {
         return DataSourceBuilder.create().type(DruidDataSource.class).build();
     }
     @Bean
+    @Primary
     public SqlSessionFactoryBean sqlSessionFactory1(@Qualifier("datasource1") DataSource dataSource1) throws IOException {
         //配置对象
         org.apache.ibatis.session.Configuration configuration=new org.apache.ibatis.session.Configuration();
@@ -40,7 +42,7 @@ public class DatasourceConfig {
         sqlSessionFactoryBean.setTypeAliasesPackage("com.ddpzp.springboot_demo.pojo");
         sqlSessionFactoryBean.setConfiguration(configuration);
         sqlSessionFactoryBean.setDataSource(dataSource1);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper.datasource1/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/datasource1/*.xml"));
         return sqlSessionFactoryBean;
     }
     @Bean
@@ -53,7 +55,7 @@ public class DatasourceConfig {
         sqlSessionFactoryBean.setTypeAliasesPackage("com.ddpzp.springboot_demo.pojo");
         sqlSessionFactoryBean.setConfiguration(configuration);
         sqlSessionFactoryBean.setDataSource(dataSource2);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper.datasource2/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/datasource2/*.xml"));
         return sqlSessionFactoryBean;
     }
     @Bean

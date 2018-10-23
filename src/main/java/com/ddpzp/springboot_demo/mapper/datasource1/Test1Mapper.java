@@ -11,9 +11,7 @@ import java.util.List;
  * Created by dd
  * Date 2018/10/23 0:47
  */
-@Mapper
-@Repository
-@Qualifier("test1Mapper")
+
 public interface Test1Mapper {
     List<Item> getAll();
 }
